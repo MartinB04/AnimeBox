@@ -9,10 +9,16 @@ export const SignIn = () => {
 
 const [username, setUsername] = useState('');
 const [password, setPassword] = useState('');
+const [name, setName] = useState('');
+const [email, setEmail] = useState('');
+const [phoneNumber, setPhoneNumber]  = useState('');
+const [profilePhoto, setProfilePhoto] = useState('');
+
+
 
     const Registrar = () => {
         /* fetch('https://kuramadev.com/Registro.php?username=mudis2&password=Kazo13') */
-        fetch(`https://kuramadev.com/Registro.php?username=${username}&password=${password}`)
+        fetch(`https://kuramadev.com/Registro.php?username=${username}&password=${password}&fotoPerfil=${profilePhoto}&nombre=${name}&fechaRegistro=1999-10-15&telefono=${phoneNumber}&email=${email}`)
             .then(response => response.text())
             .then(data => {
                 console.log('success', data);
@@ -25,14 +31,14 @@ const [password, setPassword] = useState('');
     return (
         <ScrollView>
 
-            <TextInput style={stylesAppTheme.textInput} placeholder='Name' />
+            <TextInput style={stylesAppTheme.textInput} placeholder='Name' value={name} onChangeText={setName} />
             <TextInput style={stylesAppTheme.textInput} placeholder='Username' value={username} onChangeText={setUsername}/>
             <TextInput style={stylesAppTheme.textInput} placeholder='Password' value={password} onChangeText={setPassword}/>
-            <TextInput style={stylesAppTheme.textInput} placeholder='Email' />
+            <TextInput style={stylesAppTheme.textInput} placeholder='Email' value={email} onChangeText={setEmail}/>
 
-            <TextInput style={stylesAppTheme.textInput} placeholder='Telefono' />
+            <TextInput style={stylesAppTheme.textInput} placeholder='Telefono' value={phoneNumber} onChangeText={setPhoneNumber}/>
           
-            <TextInput style={stylesAppTheme.textInput} placeholder='Foto perfil' />
+            <TextInput style={stylesAppTheme.textInput} placeholder='Foto perfil' value={profilePhoto} onChangeText={setProfilePhoto} />
             <TouchableOpacity style={stylesAppTheme.button} onPress={Registrar}>
                 <Text style={stylesAppTheme.textButton}>Registrar</Text>
             </TouchableOpacity>
