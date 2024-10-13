@@ -1,30 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler'
+import { ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler'
 
-import { useNavigation } from '@react-navigation/native'; 
+import { useNavigation } from '@react-navigation/native';
 import { SignIn } from './SignIn';
+import { stylesAppTheme } from '../Theme/AppTheme';
 
 export const LogIn = () => {
 
-const navigation = useNavigation();
+  const navigation = useNavigation();
 
   return (
-    <View>
-        
-        <TextInput style={styles.textInput} placeholder='Email'/>
-        <TextInput style={styles.textInput} placeholder='Password'/>
+    <ScrollView style={stylesAppTheme.scrollViewStyle}>
+      <View style= {stylesAppTheme.formContainer}>
+        <TextInput style={stylesAppTheme.textInput} placeholder='Email' />
+        <TextInput style={stylesAppTheme.textInput} placeholder='Password' />
 
-        <TouchableOpacity onPress={() => { navigation.navigate("SignIn"); }}>
-        <Text>Registrar</Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity style={stylesAppTheme.button} onPress={() => { navigation.navigate("SignIn"); }}>
+          <Text style={stylesAppTheme.textButton}>Iniciar Sesion</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={stylesAppTheme.buttonLink} onPress={() => { navigation.navigate("SignIn"); }}>
+          <Text style={stylesAppTheme.textLink}>Soy nuevo, quiero registrarme</Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-    textInput:{
-        height: 50,
-        
-    }
-  });
