@@ -7,6 +7,7 @@ import { SignIn } from './SignIn';
 import { stylesAppTheme } from '../Theme/AppTheme';
 
 
+
 export const LogIn = () => {
 
   const navigation = useNavigation();
@@ -18,13 +19,13 @@ export const LogIn = () => {
     navigation.navigate("BottomTabNavigator");
   }
 
-  const IniciarSesion = () => {
-    /* fetch('https://kuramadev.com/Registro.php?username=mudis2&password=Kazo13') */
+   const IniciarSesion = () => {
+     //fetch('https://kuramadev.com/Registro.php?username=mudis2&password=Kazo13') 
     fetch(`https://kuramadev.com/IniciarSesion.php?username=${username}&password=${password}`)
       .then(response => response.text())
       .then(data => {
         if(data == "0")
-          /* console.log("Usuario no encontrado"); */
+          // console.log("Usuario no encontrado"); 
         Alert.alert("Error", "Credenciales erroneas")
         else
           navegacion();
@@ -33,7 +34,7 @@ export const LogIn = () => {
       .catch(error => {
         console.warn('error', error);
       });
-  }
+  } 
 
   return (
     <ScrollView style={stylesAppTheme.scrollViewStyle}>
