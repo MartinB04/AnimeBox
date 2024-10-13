@@ -14,7 +14,10 @@ export const LogIn = () => {
 
   return (
     <ScrollView style={stylesAppTheme.scrollViewStyle}>
-      <View style= {stylesAppTheme.formContainer}>
+      <View style={stylesAppTheme.formContainer}>
+
+        <Text style={stylesAppTheme.title}>Animebox</Text>
+
         <TextInput style={stylesAppTheme.textInput} placeholder='Email' />
         <TextInput style={stylesAppTheme.textInput} placeholder='Password' />
 

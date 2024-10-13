@@ -23,8 +23,8 @@ export const StackNavigator = () => {
       initialRouteName='LogIn'
 
     >
-      <Stack.Screen name="LogIn" options={{ title: "Iniciar Sesion" }} component={LogIn} />
-      <Stack.Screen name="SignIn" options={{ title: "Registrar usuario" }} component={SignIn} />
+      <Stack.Screen name="LogIn" options={{ headerShown: false }} component={LogIn} />
+      <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
       <Stack.Screen name="BottomTabNavigator" options={{headerShown: false}} component={BottomTabNavigator} />
 
     </Stack.Navigator>

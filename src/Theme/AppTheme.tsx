@@ -1,6 +1,18 @@
 import { StyleSheet } from "react-native"
 
+export const colors = {
+    primary: "#002959",
+}
+
 export const stylesAppTheme = StyleSheet.create({
+
+    title: {
+        marginHorizontal: 10,
+        fontSize: 40,
+        textAlign: "center",
+        fontWeight: "bold",
+        color: colors.primary,
+    },
 
     scrollViewStyle: {
         paddingHorizontal: 10,
@@ -53,12 +65,12 @@ export const stylesAppTheme = StyleSheet.create({
     },
 
     buttonLink: {
-        /* backgroundColor: "red", */
         alignItems: "center",
     },
     textLink: {
-        fontSize:17,
-        fontWeight:"bold",
-        textDecorationLine:"underline",
+        fontSize: 17,
+        fontWeight: "bold",
+        textDecorationLine: "underline",
+        color: colors.primary,
     }
 })
