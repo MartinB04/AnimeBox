@@ -15,12 +15,12 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 
 // recibir variables de una app, pagina, etc
 $username = $_GET['username'];
-//$nombre = $_GET['nombre'];
+$nombre = $_GET['nombre'];
 $password = $_GET['password'];
-//$telefono = $_GET['telefono'];
-//$email = $_GET['email'];
-//$fotoPerfil = $_GET['fotoPerfil'];   
-//$fechaRegistro = $_GET['fechaRegistro'];  
+$telefono = $_GET['telefono'];
+$email = $_GET['email'];
+$fotoPerfil = $_GET['fotoPerfil'];   
+$fechaRegistro = $_GET['fechaRegistro'];  
 
 /* $idG = $_GET['idG'];
 $nombreG = $_GET['nombreG'];
@@ -30,11 +30,11 @@ $descripcionG = $_GET['descripcionG']; */
 //encriptar pass
 //$passhash = password_hash($pass, PASSWORD_DEFAULT);
 
-/* //Credenciales de autentificacion del server 
-$server = 'localhost';
-$user = 'id22079265_root';
-$passwordb = 'Kazooie25180$';
-$bdname = 'id22079265_animeapp'; */
+//Credenciales de autentificacion del server 
+/* $server = 'localhost';
+$user = 'root';
+$passwordb = 'Kazooie10';
+$bdname = 'animeapp'; */
 
 $server = 'localhost';
 $user = 'u826668871_root';
@@ -59,11 +59,11 @@ if(!$conn)
 //"http://localhost/proyecto/registro.php?username=mudis&password=passsss&fotoPerfil=FOtoperfil2&nombre=martin&fechaRegistro=1999-10-15&telefono=4571054513&email=martin25180@rockermail.com"
 
 
- /* $sql = "INSERT INTO usuario (username, password, fotoPerfil, nombre,  fechaRegistro,  telefono, email) VALUES
-('$username', '$password', '$fotoPerfil', '$nombre', '$fechaRegistro', '$telefono', '$email')";  */
- $sql = "INSERT INTO usuario (username, password) VALUES
-('$username', '$password')"; 
-
+ $sql = "INSERT INTO usuario (username, password, fotoPerfil, nombre,  fechaRegistro,  telefono, email) VALUES
+('$username', '$password', '$fotoPerfil', '$nombre', '$fechaRegistro', '$telefono', '$email')"; 
+ /* $sql = "INSERT INTO usuario (username, password) VALUES
+('$username', '$password'"; 
+ */
 
 if(mysqli_query($conn,$sql))
 {
