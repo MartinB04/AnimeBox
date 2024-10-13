@@ -72,5 +72,15 @@ export const stylesAppTheme = StyleSheet.create({
         fontWeight: "bold",
         textDecorationLine: "underline",
         color: colors.primary,
+    },
+    touchaleOpacityImage: {
+        width: 100,
+        height: 100,
+        backgroundColor: "red",
+    },
+    pickerImage: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
     }
 })

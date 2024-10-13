@@ -73,6 +73,12 @@ export const SignIn = () => {
             <TextInput style={stylesAppTheme.textInput} placeholder='Email' value={email} onChangeText={setEmail} />
             <TextInput style={stylesAppTheme.textInput} placeholder='Telefono' value={phoneNumber} onChangeText={setPhoneNumber} />
 
+            <TouchableOpacity style={stylesAppTheme.touchaleOpacityImage} onPress={selectImage}>
+                {/* <Text style={stylesAppTheme.textButton}>Seleccionar Foto de Perfil</Text> */}
+                <Image style={stylesAppTheme.pickerImage} source={profilePhoto ? { uri: profilePhoto.uri } : require('../Images/userProfileImage.png')}
+                />
+            </TouchableOpacity>
+
             <TouchableOpacity style={stylesAppTheme.button} onPress={Registrar}>
                 <Text style={stylesAppTheme.textButton}>Registrar</Text>
             </TouchableOpacity>
@@ -81,16 +87,14 @@ export const SignIn = () => {
                 <Text style={stylesAppTheme.textLink}>Iniciar sesion</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={stylesAppTheme.button} onPress={selectImage}>
-                <Text style={stylesAppTheme.textButton}>Seleccionar Foto de Perfil</Text>
-            </TouchableOpacity>
+            
 
-            {profilePhoto && (
+            {/* {profilePhoto && (
                 <Image
                     source={{ uri: profilePhoto.uri }}
                     style={{ width: 100, height: 100, marginTop: 10 }}
                 />
-            )}
+            )} */}
         </ScrollView>
     );
 };
