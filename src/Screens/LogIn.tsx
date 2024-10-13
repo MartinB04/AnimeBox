@@ -5,6 +5,8 @@ import { ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-ha
 import { useNavigation } from '@react-navigation/native';
 import { SignIn } from './SignIn';
 import { stylesAppTheme } from '../Theme/AppTheme';
+import { Home } from './Home';
+
 
 export const LogIn = () => {
 
@@ -16,7 +18,7 @@ export const LogIn = () => {
         <TextInput style={stylesAppTheme.textInput} placeholder='Email' />
         <TextInput style={stylesAppTheme.textInput} placeholder='Password' />
 
-        <TouchableOpacity style={stylesAppTheme.button} onPress={() => { navigation.navigate("SignIn"); }}>
+        <TouchableOpacity style={stylesAppTheme.button} onPress={() => { navigation.navigate("BottomTabNavigator"); }}>
           <Text style={stylesAppTheme.textButton}>Iniciar Sesion</Text>
         </TouchableOpacity>
         <TouchableOpacity style={stylesAppTheme.buttonLink} onPress={() => { navigation.navigate("SignIn"); }}>
