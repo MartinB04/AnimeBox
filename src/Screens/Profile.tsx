@@ -16,6 +16,18 @@ export const Profile = () => {
     navigation.navigate("LogIn");
   }
 
+
+  const AlertDeleteUserProfile = () =>
+    Alert.alert('Eliminación de Perfil', '¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es irreversible.', [
+      
+      {text: 'Eliminar', onPress: () => EliminarPerfil()},
+      {
+        text: 'Cancel',
+        /* onPress: () => console.log('Cancel Pressed'), */
+        style: 'cancel',
+      },
+    ]);
+
   const EliminarPerfil = () => {
     fetch(`https://kuramadev.com/EliminarUsuario.php?username=${userData?.username}`)
       .then(response => response.text())
@@ -74,7 +86,7 @@ export const Profile = () => {
         <TouchableOpacity style={stylesAppTheme.button} onPress={() => { navigation.navigate("LogIn"); }}>
           <Text style={stylesAppTheme.textButton}>Cerrar Sesion</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={stylesAppTheme.button} onPress={EliminarPerfil}>
+        <TouchableOpacity style={stylesAppTheme.button} onPress={AlertDeleteUserProfile}>
           <Text style={stylesAppTheme.textButton}>Eliminar perfil</Text>
         </TouchableOpacity>
       </View>
