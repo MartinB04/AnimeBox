@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { View, Text, StyleSheet, Alert } from 'react-native'
 import { ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler'
 
 import { useNavigation } from '@react-navigation/native';
 import { SignIn } from './SignIn';
 import { stylesAppTheme } from '../Theme/AppTheme';
-
+import { UserContext } from '../Components/UserContext';
 
 
 export const LogIn = () => {
@@ -18,23 +18,35 @@ export const LogIn = () => {
   const navegacion = () => {
     navigation.navigate("BottomTabNavigator");
   }
-
-   const IniciarSesion = () => {
-     //fetch('https://kuramadev.com/Registro.php?username=mudis2&password=Kazo13') 
+  const { setUserData } = useContext(UserContext) || { setUserData: () => { } }; // Maneja el caso de que el contexto no esté definido
+  const IniciarSesion = () => {
+    //fetch('https://kuramadev.com/Registro.php?username=mudis2&password=Kazo13') 
     fetch(`https://kuramadev.com/IniciarSesion.php?username=${username}&password=${password}`)
-      .then(response => response.text())
+      .then(response => response.json())
       .then(data => {
-        if(data == "0")
+        if (data == "0") {
           // console.log("Usuario no encontrado"); 
-        Alert.alert("Error", "Credenciales erroneas")
-        else
+          Alert.alert("Error", "Credenciales erroneas")
+        }
+        else {
+          const userData = {
+            username: data.username, // Asegúrate de que la respuesta contenga el username
+            password: data.password,       // Suponiendo que la API devuelve el email
+            name: data.nombre,
+            phoneNumber: data.telefono,
+            email: data.email,       // Y también el ID del usuario
+            profilePhoto: data.fotoPerfil,
+            // Agrega otras propiedades según la respuesta de la API
+          }
+          setUserData(userData);
           navegacion();
+        }
       })
-    
+
       .catch(error => {
         console.warn('error', error);
       });
-  } 
+  }
 
   return (
     <ScrollView style={stylesAppTheme.scrollViewStyle}>

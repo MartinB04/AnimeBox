@@ -13,6 +13,12 @@ export const stylesAppTheme = StyleSheet.create({
         fontWeight: "bold",
         color: colors.primary,
     },
+    titleScreen:{
+        textAlign: "center",
+        fontSize: 30,
+        fontWeight:"bold",
+        color: colors.primary,
+    },
 
     scrollViewStyle: {
         paddingHorizontal: 10,
@@ -23,8 +29,10 @@ export const stylesAppTheme = StyleSheet.create({
     mainContainer: {
         width: "auto",
         /* marginHorizontal: 10, */
-        backgroundColor: "red",
+        backgroundColor: "skyblue",
         height: "auto",
+        borderRadius:10,
+        padding:10,
 
     },
 
@@ -40,6 +48,7 @@ export const stylesAppTheme = StyleSheet.create({
         fontSize: 20,
         paddingHorizontal: 20,
         fontStyle: "italic",
+        borderRadius: 10,
 
     },
 
@@ -76,11 +85,15 @@ export const stylesAppTheme = StyleSheet.create({
     touchaleOpacityImage: {
         width: 100,
         height: 100,
-        backgroundColor: "red",
+        marginHorizontal: 10,
     },
     pickerImage: {
         width: 100,
         height: 100,
         borderRadius: 50,
-    }
+    },
+    textLabel:{
+        fontSize: 18,
+        color: colors.primary,
+    },
 })
