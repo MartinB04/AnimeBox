@@ -13,10 +13,10 @@ export const stylesAppTheme = StyleSheet.create({
         fontWeight: "bold",
         color: colors.primary,
     },
-    titleScreen:{
+    titleScreen: {
         textAlign: "center",
         fontSize: 30,
-        fontWeight:"bold",
+        fontWeight: "bold",
         color: colors.primary,
     },
 
@@ -31,8 +31,8 @@ export const stylesAppTheme = StyleSheet.create({
         /* marginHorizontal: 10, */
         backgroundColor: "skyblue",
         height: "auto",
-        borderRadius:10,
-        padding:10,
+        borderRadius: 10,
+        padding: 10,
 
     },
 
@@ -92,10 +92,18 @@ export const stylesAppTheme = StyleSheet.create({
         height: 100,
         borderRadius: 50,
     },
-    textLabel:{
+    rowProfile: {
+        flexDirection: "row",
+    },
+    textLabel: {
         fontSize: 18,
         color: colors.primary,
     },
+
+    textLabelUserData: {
+        fontWeight:"bold",
+    },
+
     animeConteiner: {
         flexDirection: 'row',
         flexWrap: 'wrap',
@@ -107,7 +115,7 @@ export const stylesAppTheme = StyleSheet.create({
     {
         //backgroundColor: "orange",
         padding: 0,
-        margin:5,
+        margin: 5,
         marginHorizontal: 3,
     },
     animeCellImage: {
@@ -117,9 +125,9 @@ export const stylesAppTheme = StyleSheet.create({
         borderRadius: 10,
 
     },
-    animeCellText:{
-      textAlign: "center",  
-      width:100,
-      color: colors.primary
+    animeCellText: {
+        textAlign: "center",
+        width: 100,
+        color: colors.primary
     },
 })

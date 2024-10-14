@@ -1,35 +1,84 @@
 import React, { useContext } from 'react'
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, Alert } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { stylesAppTheme } from '../Theme/AppTheme'
 import { useNavigation } from '@react-navigation/native'
 import { UserContext } from '../Components/UserContext'
+import { LogIn } from './LogIn'
 
 export const Profile = () => {
   const dominio = 'https://kuramadev.com/uploads/';
   const navigation = useNavigation();
   const { userData } = useContext(UserContext) || { userData: null }; // Maneja el caso de que el contexto no esté definido
+
+
+  const navegacion = () => {
+    navigation.navigate("LogIn");
+  }
+
+  const EliminarPerfil = () => {
+    fetch(`https://kuramadev.com/EliminarUsuario.php?username=${userData?.username}`)
+      .then(response => response.text())
+      .then(data => {
+        console.log("Respuesta del servidor:", data); // Imprime la respuesta para depurar
+        if (data.includes("Usuario eliminado con éxito")) {
+          Alert.alert("Listo", "Usuario eliminado con éxito");
+          navegacion();
+        } else {
+          Alert.alert("Error", "No se pudo eliminar el usuario. Intenta de nuevo.");
+        }
+      })
+      .catch(error => {
+        console.warn('Error:', error);
+        Alert.alert("Error", "Hubo un problema al eliminar el perfil. Intenta más tarde.");
+      });
+  };
+
+
   return (
     <ScrollView style={stylesAppTheme.scrollViewStyle}>
       <View style={stylesAppTheme.mainContainer}>
-        <View >
-          <Text style={stylesAppTheme.titleScreen}>Profile</Text>
-          <Text style={stylesAppTheme.textLabel}>Nombre: {userData?.name}</Text>
-          <Text style={stylesAppTheme.textLabel}>Username: {userData?.username}</Text>
-          <Text style={stylesAppTheme.textLabel}>Password: {userData?.password}</Text>
-          <Text style={stylesAppTheme.textLabel}>Email: {userData?.email}</Text>
-          <Text style={stylesAppTheme.textLabel}>PhoneNumber: {userData?.phoneNumber}</Text>
 
-
-          <Image style={stylesAppTheme.pickerImage} source={userData?.profilePhoto ? { uri: `${dominio}${userData?.profilePhoto}` } : require('../Images/userProfileImage.png')}
-          />
-
-
-          <TouchableOpacity style={stylesAppTheme.button} onPress={() => { navigation.navigate("LogIn"); }}>
-            <Text style={stylesAppTheme.textButton}>Cerrar Sesion</Text>
-          </TouchableOpacity>
+        <Text style={stylesAppTheme.titleScreen}>Profile</Text>
+        <View style={stylesAppTheme.rowProfile}>
+          <Text style={stylesAppTheme.textLabel}>Nombre: </Text>
+          <Text style={[stylesAppTheme.textLabel, stylesAppTheme.textLabelUserData]}>{userData?.name}</Text>
         </View>
+        <View style={stylesAppTheme.rowProfile}>
+          <Text style={stylesAppTheme.textLabel}>Username: </Text>
+          <Text style={[stylesAppTheme.textLabel, stylesAppTheme.textLabelUserData]}>{userData?.username}</Text>
+
+        </View>
+        <View style={stylesAppTheme.rowProfile}>
+          <Text style={stylesAppTheme.textLabel}>Password: </Text>
+          <Text style={[stylesAppTheme.textLabel, stylesAppTheme.textLabelUserData]}>{userData?.password}</Text>
+
+        </View>
+        <View style={stylesAppTheme.rowProfile}>
+          <Text style={stylesAppTheme.textLabel}>Email: </Text>
+
+          <Text style={[stylesAppTheme.textLabel, stylesAppTheme.textLabelUserData]}>{userData?.email}</Text>
+
+        </View>
+        <View style={stylesAppTheme.rowProfile}>
+          <Text style={stylesAppTheme.textLabel}>PhoneNumber: </Text>
+          <Text style={[stylesAppTheme.textLabel, stylesAppTheme.textLabelUserData]}>{userData?.phoneNumber}</Text>
+
+        </View>
+
+
+        <Image style={stylesAppTheme.pickerImage} source={userData?.profilePhoto ? { uri: `${dominio}${userData?.profilePhoto}` } : require('../Images/userProfileImage.png')}
+        />
+
+
+        <TouchableOpacity style={stylesAppTheme.button} onPress={() => { navigation.navigate("LogIn"); }}>
+          <Text style={stylesAppTheme.textButton}>Cerrar Sesion</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={stylesAppTheme.button} onPress={EliminarPerfil}>
+          <Text style={stylesAppTheme.textButton}>Eliminar perfil</Text>
+        </TouchableOpacity>
       </View>
+
     </ScrollView>
   )
 }
