@@ -96,4 +96,30 @@ export const stylesAppTheme = StyleSheet.create({
         fontSize: 18,
         color: colors.primary,
     },
+    animeConteiner: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        width: "100%",
+        //backgroundColor: "red",
+        justifyContent: "center",
+    },
+    animeCell:
+    {
+        //backgroundColor: "orange",
+        padding: 0,
+        margin:5,
+        marginHorizontal: 3,
+    },
+    animeCellImage: {
+        /* width: 105, */
+        width: 100,
+        height: 150,
+        borderRadius: 10,
+
+    },
+    animeCellText:{
+      textAlign: "center",  
+      width:100,
+      color: colors.primary
+    },
 })
