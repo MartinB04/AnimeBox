@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Recibir las variables
     $id_usuario = $_GET['username'];
     $nombre = $_GET['name'];
-    $contraseña = $_GET['password'];
+    $contrasenia = $_GET['password'];
     $telefono = $_GET['phone'];
     $email = $_GET['email'];
     //$fechaRegistro = $_POST['fechaRegistro'] ?? '';
@@ -56,8 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 
     // Inserción de datos
-    $sql = "INSERT INTO usuario (id_usuario, nombre, contraseña, telefono, email, fecha_registro, imagen_perfil) 
-    VALUES ('$id_usuario', '$nombre', '$contraseña', '$telefono', '$email', CURDATE(), '$imagen_perfil')";
+    $sql = "INSERT INTO usuario (id_usuario, nombre, contrasenia, telefono, email, fecha_registro, imagen_perfil) 
+    VALUES ('$id_usuario', '$nombre', '$contrasenia', '$telefono', '$email', CURDATE(), '$imagen_perfil')";
 
     if (mysqli_query($conn, $sql)) {
         echo "Se insertó con éxito";

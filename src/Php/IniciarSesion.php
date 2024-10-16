@@ -4,9 +4,9 @@
 //ini_set('display_startup_errors', 1);
 //error_reporting(E_ALL);
 //Datos recibidos
-$username = $_GET['username'];
+$id_usuario = $_GET['username'];
 
-$password = $_GET['password'];
+$contrasenia = $_GET['password'];
 
 
 //credenciales
@@ -28,7 +28,7 @@ if(!$conn)
 }
 
 //sentencia a ejecutar en el server de bd
-$sql = "SELECT * FROM usuario WHERE(username='$username')";
+$sql = "SELECT * FROM usuario WHERE(id_usuario='$id_usuario')";
 //ejecucion de la sentencia
 $result = mysqli_query($conn,$sql);
 
@@ -40,17 +40,11 @@ if(mysqli_num_rows($result)>0)
 {
     while($row = mysqli_fetch_assoc($result))
     {
-        /* username VARCHAR(50) PRIMARY KEY,
-    password VARCHAR(50) NOT NULL,
-    fotoPerfil VARCHAR(200),
-    nombre VARCHAR(70) NOT NULL,
-    fechaRegistro DATE  NOT NULL,
-    telefono VARCHAR(10) NOT NULL,
-    email VARCHAR(40) NOT NULL */
+
         /* if (password_verify($password, $row['password'])) { */
-        if ($password === $row['password']) {
+        if ($contrasenia === $row['contrasenia']) {
             $band = True;
-            $datos=array('username'=>$row['username'],'password'=>$row['password'],'fotoPerfil'=>$row['fotoPerfil'],'nombre'=>$row['nombre'],'fechaRegistro'=>$row['fechaRegistro'],'telefono'=>$row['telefono'],'email'=>$row['email']); 
+            $datos=array('id_usuario'=>$row['id_usuario'],'nombre'=>$row['nombre'],'contrasenia'=>$row['contrasenia'],'telefono'=>$row['telefono'],'email'=>$row['email'],'fecha_registro'=>$row['fecha_registro'],'imagen_perfil'=>$row['imagen_perfil']); 
         }
         else{
             $band = False;

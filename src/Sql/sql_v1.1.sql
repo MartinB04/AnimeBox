@@ -2,7 +2,7 @@
 CREATE TABLE usuario (
     id_usuario VARCHAR(50) PRIMARY KEY,
     nombre VARCHAR(70) NOT NULL,
-    contraseña VARCHAR(200) NOT NULL,
+    contrasenia VARCHAR(200) NOT NULL,
     telefono VARCHAR(15) NOT NULL,
     email VARCHAR(60) NOT NULL,
     fecha_registro DATE NOT NULL,
