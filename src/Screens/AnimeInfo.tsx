@@ -1,20 +1,24 @@
 import React, { useContext } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { stylesAppTheme } from '../Theme/AppTheme';
 import { AnimeContext } from '../Components/AnimeContext';
 import { ScrollView } from 'react-native-gesture-handler';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { UserContext } from '../Components/UserContext'
+
 
 export const AnimeInfo = () => {
     const context = useContext(AnimeContext);
-
+    
     if (!context) {
         throw new Error('AnimeContext must be used within an AnimeProvider');
     }
+    
+    const { userData } = useContext(UserContext) || { userData: null }; // Maneja el caso de que el contexto no esté definido
 
     const { animeData } = context;
 
-    // Agregar un console.log para verificar los datos
-    console.log('Datos del anime:', animeData); // Verifica que los datos se están pasando correctamente
+    console.log(userData?.username, animeData?.id_anime)
 
     if (!animeData) {
         return (
@@ -35,10 +39,11 @@ export const AnimeInfo = () => {
                     </View>
                 </View>
                 <View style={stylesAppTheme.animeDataBarView}>
-                    {<View style={stylesAppTheme.infoBar}>
-                        <Text style={stylesAppTheme.textInfoAnime}>Tipo: </Text>
-                        <Text style={[stylesAppTheme.textInfoAnime, stylesAppTheme.textInfoAnimeData]}>{animeData.tipo_contenido}</Text>
-                    </View>}
+                    {<TouchableOpacity style={stylesAppTheme.infoBar}>
+                        <Text style={stylesAppTheme.textInfoAnime}>Favorito: </Text>
+                        <Ionicons name='heart' size={25} color={"red"} />
+
+                    </TouchableOpacity>}
                     <View style={stylesAppTheme.infoBar}>
                         <Text style={stylesAppTheme.textInfoAnime}>Popularidad: </Text>
                         <Text style={[stylesAppTheme.textInfoAnime, stylesAppTheme.textInfoAnimeData]}>{animeData.popularidad}</Text>
@@ -63,6 +68,9 @@ export const AnimeInfo = () => {
 
                     <Text style={stylesAppTheme.textInfoAnime}>Estatus emision: </Text>
                     <Text style={[stylesAppTheme.textInfoAnime, stylesAppTheme.textInfoAnimeData]}>{animeData.status_emision}</Text>
+
+                    <Text style={stylesAppTheme.textInfoAnime}>Tipo: </Text>
+                    <Text style={[stylesAppTheme.textInfoAnime, stylesAppTheme.textInfoAnimeData]}>{animeData.tipo_contenido}</Text>
                 </View>
             </View>
         </ScrollView>
