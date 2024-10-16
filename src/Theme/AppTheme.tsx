@@ -23,6 +23,7 @@ export const stylesAppTheme = StyleSheet.create({
     scrollViewStyle: {
         paddingHorizontal: 10,
         backgroundColor: "#f0f6fc",
+        width: "auto",
 
     },
 
@@ -129,5 +130,58 @@ export const stylesAppTheme = StyleSheet.create({
         textAlign: "center",
         width: 100,
         color: colors.primary
+    },
+    titleAnimeScreen: {
+        textAlign: "center",
+        fontSize: 25,
+        fontWeight: "bold",
+        color: colors.primary,
+        flexWrap: "wrap",
+    },
+    titleAnimeContainer: {
+        flex: 1, // Ocupa el espacio restante
+        justifyContent: "center", // Centra verticalmente el texto
+        marginLeft: 10, // Añade un margen para separar el texto de la imagen
+    },
+    animeDataTopView: {
+        flexDirection: "row",
+        backgroundColor: "white",
+        padding:10,
+        borderRadius: 10,
+        marginVertical: 10,
+        width: "100%",
+    },
+    animeDataBarView: {
+        flexDirection: "row",
+        backgroundColor: "white",
+        padding:10,
+        borderRadius: 10,
+        marginVertical: 10,
+        width: "100%",
+        justifyContent: "center",
+        
+    },
+    infoBar:{
+        flexWrap: "wrap",
+        width: "auto",
+        justifyContent: "center",
+        alignItems: "center",
+        //backgroundColor: "red",
+        marginHorizontal: 10,
+    },
+    animeDataView: {
+        flexDirection: "column",
+        backgroundColor: "white",
+        padding:10,
+        borderRadius: 10,
+        marginVertical: 10,
+    },
+    textInfoAnime:{
+        fontSize: 18,
+        color: colors.primary,
+        textAlign:"justify",
+    },
+    textInfoAnimeData:{
+        fontWeight: "bold",
     },
 })
