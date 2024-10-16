@@ -3,23 +3,23 @@
 // Habilitar CORS para permitir solicitudes de cualquier origen
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type");
-header("Access-Control-Allow-Methods: GET, OPTIONS");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
 
 // Revisar si se ha recibido la solicitud correctamente
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Recibir las variables
-    $id_usuario = $_GET['username'];
-    $nombre = $_GET['name'];
-    $contrasenia = $_GET['password'];
-    $telefono = $_GET['phone'];
-    $email = $_GET['email'];
+    $id_usuario = $_POST['username'] ?? '';
+    $nombre = $_POST['name'] ?? '';
+    $contrasenia = $_POST['password'] ?? '';
+    $telefono = $_POST['phone'] ?? '';
+    $email = $_POST['email'] ?? '';
     //$fechaRegistro = $_POST['fechaRegistro'] ?? '';
 
 
     // Log para verificar los datos recibidos
-    file_put_contents('log.txt', "Datos recibidos: " . json_encode($_GET) . PHP_EOL, FILE_APPEND);
+    file_put_contents('log.txt', "Datos recibidos: " . json_encode($_POST) . PHP_EOL, FILE_APPEND);
 
-    /* 
+     
     // Manejo de la imagen de perfil si existe
     if (isset($_FILES['imagen_perfil']) && $_FILES['imagen_perfil']['error'] === UPLOAD_ERR_OK) {
         $imagen_perfil = $_FILES['imagen_perfil']['name'];
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     } else {
         $imagen_perfil = ''; // Si no se subió archivo, dejamos el campo vacío
         file_put_contents('log.txt', "No se recibió imagen o hubo un error." . PHP_EOL, FILE_APPEND);
-    } */
+    } 
 
     // Credenciales de autentificacion del servidor 
     $server = 'localhost';

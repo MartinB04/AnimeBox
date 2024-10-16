@@ -30,12 +30,12 @@ export const LogIn = () => {
         }
         else {
           const userData = {
-            username: data.username, // Asegúrate de que la respuesta contenga el username
-            password: data.password,       // Suponiendo que la API devuelve el email
+            username: data.id_usuario, // Asegúrate de que la respuesta contenga el username
+            password: data.contrasenia,       // Suponiendo que la API devuelve el email
             name: data.nombre,
             phoneNumber: data.telefono,
             email: data.email,       // Y también el ID del usuario
-            profilePhoto: data.fotoPerfil,
+            profilePhoto: data.imagen_perfil,
             // Agrega otras propiedades según la respuesta de la API
           }
           setUserData(userData);

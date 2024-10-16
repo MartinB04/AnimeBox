@@ -20,9 +20,8 @@ export const SignIn = () => {
         const formData = new FormData();
         formData.append('username', username);
         formData.append('password', password);
-        formData.append('nombre', name);
-        formData.append('fechaRegistro', '1999-10-15');
-        formData.append('telefono', phoneNumber);
+        formData.append('name', name);
+        formData.append('phone', phoneNumber);
         formData.append('email', email);
 
         if (profilePhoto && profilePhoto.uri) {
@@ -31,7 +30,7 @@ export const SignIn = () => {
             const match = /\.(\w+)$/.exec(filename || '');
             const type = match ? `image/${match[1]}` : `image`;
 
-            formData.append('fotoPerfil', {
+            formData.append('imagen_perfil', {
                 uri: localUri,
                 name: filename || 'image',
                 type: type,
