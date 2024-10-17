@@ -39,7 +39,10 @@ export const AnimeInfo = () => {
     console.log(userData?.username, animeData?.id_anime)
 
 
-    const [visualizationData, setVisualizationData] = useState<VisualizationData | null>(null);
+    const [visualizationData, setVisualizationData] = useState<VisualizationData | null>({
+        favorito: false, // o el valor que consideres apropiado
+        status_vision: 'No marcado', // o el valor que desees
+    });
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -79,6 +82,35 @@ export const AnimeInfo = () => {
         );
     }
 
+    const Favorite = async () => {
+        try {
+            // Invertir el valor de favorito localmente para actualizar la UI de inmediato
+            const newFavoriteStatus = !visualizationData?.favorito;
+    
+            // Realizar la petición a la API para actualizar el valor en el backend
+            const response = await fetch(
+                `https://kuramadev.com/ActualizarVisualizacion.php?id_usuario=${userData?.username}&id_anime=${animeData?.id_anime}&status_vision=${visualizationData?.status_vision}&favorito=${newFavoriteStatus}`
+            );
+    
+            const data = await response.json();
+    
+            if (data == "0") {
+                // Si hay un error con el usuario, puedes mostrar una alerta o manejarlo como desees
+                console.log("Error al actualizar el estado de favorito");
+            } else {
+                // Si la actualización en el servidor fue exitosa, actualizar el estado localmente
+                setVisualizationData((prevData) => {
+                    if (prevData) {
+                        return { ...prevData, favorito: newFavoriteStatus };
+                    }
+                    return prevData;
+                });
+            }
+        } catch (error) {
+            console.warn('Error al actualizar favorito:', error);
+        }
+    };
+
     return (
         <ScrollView style={stylesAppTheme.scrollViewStyle}>
             <View style={stylesAppTheme.mainContainer}>
@@ -90,7 +122,7 @@ export const AnimeInfo = () => {
                     </View>
                 </View>
                 <View style={stylesAppTheme.animeDataBarView}>
-                    {<TouchableOpacity style={stylesAppTheme.infoBar}>
+                    {<TouchableOpacity style={stylesAppTheme.infoBar} onPress={Favorite}>
                         <Text style={stylesAppTheme.textInfoAnime}>Favorito: </Text>
                         <Ionicons name='heart' size={25} color={visualizationData?.favorito ? "red" : "grey"} />
 
