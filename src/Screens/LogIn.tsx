@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { SignIn } from './SignIn';
 import { stylesAppTheme } from '../Theme/AppTheme';
 import { UserContext } from '../Components/UserContext';
+import { login_script } from '../Const/UrlConfig';
 
 
 export const LogIn = () => {
@@ -21,7 +22,7 @@ export const LogIn = () => {
   const { setUserData } = useContext(UserContext) || { setUserData: () => { } }; // Maneja el caso de que el contexto no esté definido
   const IniciarSesion = () => {
     //fetch('https://kuramadev.com/Registro.php?username=mudis2&password=Kazo13') 
-    fetch(`https://kuramadev.com/IniciarSesion.php?username=${username}&password=${password}`)
+    fetch(`${login_script}?username=${username}&password=${password}`)
       .then(response => response.json())
       .then(data => {
         if (data == "0") {
