@@ -5,7 +5,7 @@ import { stylesAppTheme } from '../Theme/AppTheme';
 import { useNavigation } from '@react-navigation/native';
 import { Asset, launchImageLibrary } from 'react-native-image-picker';
 
-export const SignIn = () => {
+export const RegisterUser = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');

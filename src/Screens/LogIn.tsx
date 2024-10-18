@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Alert } from 'react-native'
 import { ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler'
 
 import { useNavigation } from '@react-navigation/native';
-import { SignIn } from './SignIn';
+import { SignIn } from './RegisterUser';
 import { stylesAppTheme } from '../Theme/AppTheme';
 import { UserContext } from '../Components/UserContext';
 import { login_script } from '../Const/UrlConfig';
@@ -61,7 +61,7 @@ export const LogIn = () => {
         <TouchableOpacity style={stylesAppTheme.button} onPress={IniciarSesion}>
           <Text style={stylesAppTheme.textButton}>Iniciar Sesion</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={stylesAppTheme.buttonLink} onPress={() => { navigation.navigate("SignIn"); }}>
+        <TouchableOpacity style={stylesAppTheme.buttonLink} onPress={() => { navigation.navigate("RegisterUser"); }}>
           <Text style={stylesAppTheme.textLink}>Soy nuevo, quiero registrarme</Text>
         </TouchableOpacity>
       </View>
