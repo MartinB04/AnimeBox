@@ -5,10 +5,10 @@ import { stylesAppTheme } from '../Theme/AppTheme'
 import { useNavigation } from '@react-navigation/native'
 import { UserContext } from '../Components/UserContext'
 import { LogIn } from './LogIn'
-import { delete_user_script } from '../Const/UrlConfig'
+import { delete_user_script, images_path, user_profile_images_path } from '../Const/UrlConfig'
 
 export const Profile = () => {
-  const dominio = 'https://kuramadev.com/uploads/';
+  
   const navigation = useNavigation();
   const { userData } = useContext(UserContext) || { userData: null }; // Maneja el caso de que el contexto no esté definido
 
@@ -80,7 +80,7 @@ export const Profile = () => {
         </View>
 
 
-        <Image style={stylesAppTheme.pickerImage} source={userData?.profilePhoto ? { uri: `${dominio}${userData?.profilePhoto}` } : require('../Images/userProfileImage.png')}
+        <Image style={stylesAppTheme.pickerImage} source={userData?.profilePhoto ? { uri: `${user_profile_images_path}/${userData?.profilePhoto}` } : {uri: `${images_path}/userProfileImage.png`} }
         />
 
 

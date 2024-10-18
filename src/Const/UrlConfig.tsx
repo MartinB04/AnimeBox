@@ -1,5 +1,7 @@
 export const domain = "https://kuramadev.com/anime_box/src";
 
+export const user_profile_images_path = "https://kuramadev.com/anime_box/uploads/user_profile_images";
+
 export const php_path = `${domain}/Php`;
 
 export const login_script = `${php_path}/IniciarSesion.php`

@@ -26,7 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $tmp_name = $_FILES['imagen_perfil']['tmp_name'];
 
         // Definir el directorio donde se guardará la imagen
-        $uploadDir = 'uploads/';
+        //$uploadDir = 'uploads/';
+
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/anime_box/uploads/user_profile_images/';
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0777, true); // Crear el directorio si no existe
         }
