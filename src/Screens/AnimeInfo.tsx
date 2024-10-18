@@ -5,6 +5,7 @@ import { AnimeContext } from '../Components/AnimeContext';
 import { ScrollView } from 'react-native-gesture-handler';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { UserContext } from '../Components/UserContext'
+import { update_visualization_anime_script, visualization_anime_script } from '../Const/UrlConfig';
 
 type VisualizationData = {
     favorito: boolean;
@@ -49,7 +50,7 @@ export const AnimeInfo = () => {
         const fetchVisualizationData = async () => {
             try {
                 if (userData?.username && animeData?.id_anime) {
-                    const response = await fetch(`https://kuramadev.com/Visualizacion.php?id_usuario=${userData.username}&id_anime=${animeData.id_anime}`);
+                    const response = await fetch(`${visualization_anime_script}?id_usuario=${userData.username}&id_anime=${animeData.id_anime}`);
                     const data = await response.json();
                     setVisualizationData(data);
                 }
@@ -89,7 +90,7 @@ export const AnimeInfo = () => {
     
             // Realizar la petición a la API para actualizar el valor en el backend
             const response = await fetch(
-                `https://kuramadev.com/ActualizarVisualizacion.php?id_usuario=${userData?.username}&id_anime=${animeData?.id_anime}&status_vision=${visualizationData?.status_vision}&favorito=${newFavoriteStatus}`
+                `${update_visualization_anime_script}?id_usuario=${userData?.username}&id_anime=${animeData?.id_anime}&status_vision=${visualizationData?.status_vision}&favorito=${newFavoriteStatus}`
             );
     
             const data = await response.json();

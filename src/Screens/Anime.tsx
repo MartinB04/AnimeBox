@@ -4,6 +4,7 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { stylesAppTheme } from '../Theme/AppTheme';
 import { AnimeContext, AnimeData } from '../Components/AnimeContext';
 import { useNavigation } from '@react-navigation/native';
+import { show_animes_script } from '../Const/UrlConfig';
 
 export const Anime = () => {
     const [animes, setAnimes] = useState<AnimeData[]>([]);
@@ -13,7 +14,7 @@ export const Anime = () => {
     // Función para obtener los datos desde la API
     const fetchAnimes = async () => {
         try {
-            const response = await fetch('https://kuramadev.com/MostrarAnimes.php'); // Replace with your server URL
+            const response = await fetch(`${show_animes_script}`); // Replace with your server URL
             const data = await response.json();
             setAnimes(data); // Save the fetched anime data in the state
         } catch (error) {

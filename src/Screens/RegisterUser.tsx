@@ -4,6 +4,7 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { stylesAppTheme } from '../Theme/AppTheme';
 import { useNavigation } from '@react-navigation/native';
 import { Asset, launchImageLibrary } from 'react-native-image-picker';
+import { register_user_script } from '../Const/UrlConfig';
 
 export const RegisterUser = () => {
     const [username, setUsername] = useState('');
@@ -37,7 +38,7 @@ export const RegisterUser = () => {
             } as any);  // Añadimos 'as any' para evitar el error de 'Blob'
         }
 
-        fetch(`https://kuramadev.com/Registro.php`, {
+        fetch(`${register_user_script}`, {
             method: 'POST',
             body: formData,
             headers: {

@@ -5,6 +5,7 @@ import { stylesAppTheme } from '../Theme/AppTheme'
 import { useNavigation } from '@react-navigation/native'
 import { UserContext } from '../Components/UserContext'
 import { LogIn } from './LogIn'
+import { delete_user_script } from '../Const/UrlConfig'
 
 export const Profile = () => {
   const dominio = 'https://kuramadev.com/uploads/';
@@ -29,7 +30,7 @@ export const Profile = () => {
     ]);
 
   const EliminarPerfil = () => {
-    fetch(`https://kuramadev.com/EliminarUsuario.php?username=${userData?.username}`)
+    fetch(`${delete_user_script}?username=${userData?.username}`)
       .then(response => response.text())
       .then(data => {
         console.log("Respuesta del servidor:", data); // Imprime la respuesta para depurar
