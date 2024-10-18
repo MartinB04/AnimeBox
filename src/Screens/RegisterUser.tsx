@@ -37,7 +37,7 @@ export const RegisterUser = () => {
             } as any);  // Añadimos 'as any' para evitar el error de 'Blob'
         }
 
-        fetch('https://kuramadev.com/Registro.php', {
+        fetch(`https://kuramadev.com/Registro.php`, {
             method: 'POST',
             body: formData,
             headers: {
