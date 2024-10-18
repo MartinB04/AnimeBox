@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { View, Text, Image, Alert } from 'react-native'
+import React, { useContext, useState } from 'react'
+import { View, Text, Image, Alert, TextInput } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { stylesAppTheme } from '../Theme/AppTheme'
 import { useNavigation } from '@react-navigation/native'
@@ -8,9 +8,11 @@ import { LogIn } from './LogIn'
 import { delete_user_script, images_path, user_profile_images_path } from '../Const/UrlConfig'
 
 export const Profile = () => {
-  
+
   const navigation = useNavigation();
   const { userData } = useContext(UserContext) || { userData: null }; // Maneja el caso de que el contexto no esté definido
+
+  const [updateProfile, setUpdateProfile] = useState(false)
 
 
   const navegacion = () => {
@@ -20,8 +22,8 @@ export const Profile = () => {
 
   const AlertDeleteUserProfile = () =>
     Alert.alert('Eliminación de Perfil', '¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es irreversible.', [
-      
-      {text: 'Eliminar', onPress: () => EliminarPerfil()},
+
+      { text: 'Eliminar', onPress: () => EliminarPerfil() },
       {
         text: 'Cancel',
         /* onPress: () => console.log('Cancel Pressed'), */
@@ -54,10 +56,6 @@ export const Profile = () => {
 
         <Text style={stylesAppTheme.titleScreen}>Profile</Text>
         <View style={stylesAppTheme.rowProfile}>
-          <Text style={stylesAppTheme.textLabel}>Nombre: </Text>
-          <Text style={[stylesAppTheme.textLabel, stylesAppTheme.textLabelUserData]}>{userData?.name}</Text>
-        </View>
-        <View style={stylesAppTheme.rowProfile}>
           <Text style={stylesAppTheme.textLabel}>Username: </Text>
           <Text style={[stylesAppTheme.textLabel, stylesAppTheme.textLabelUserData]}>{userData?.username}</Text>
 
@@ -68,21 +66,36 @@ export const Profile = () => {
 
         </View>
         <View style={stylesAppTheme.rowProfile}>
-          <Text style={stylesAppTheme.textLabel}>Email: </Text>
-
-          <Text style={[stylesAppTheme.textLabel, stylesAppTheme.textLabelUserData]}>{userData?.email}</Text>
-
+          <Text style={stylesAppTheme.textLabel}>Nombre: </Text>
+          {updateProfile ?
+            (<TextInput style={stylesAppTheme.textInput} placeholder='Nombre Bv' />) :
+            (<Text style={[stylesAppTheme.textLabel, stylesAppTheme.textLabelUserData]}>{userData?.name}</Text>)
+          }
         </View>
         <View style={stylesAppTheme.rowProfile}>
-          <Text style={stylesAppTheme.textLabel}>PhoneNumber: </Text>
-          <Text style={[stylesAppTheme.textLabel, stylesAppTheme.textLabelUserData]}>{userData?.phoneNumber}</Text>
-
+          <Text style={stylesAppTheme.textLabel}>Email: </Text>
+          {updateProfile ?
+            (<TextInput style={stylesAppTheme.textInput} placeholder='Email Bv' />) :
+            (<Text style={[stylesAppTheme.textLabel, stylesAppTheme.textLabelUserData]}>{userData?.email}</Text>)
+          }
+        </View>
+        <View style={stylesAppTheme.rowProfile}>
+          <Text style={stylesAppTheme.textLabel}>Phone: </Text>
+          {updateProfile ?
+            (<TextInput style={stylesAppTheme.textInput} placeholder='Phone Bv' /* value={userData?.phoneNumber} */ />) :
+            (<Text style={[stylesAppTheme.textLabel, stylesAppTheme.textLabelUserData]}>{userData?.phoneNumber}</Text>)
+          }
         </View>
 
-
-        <Image style={stylesAppTheme.pickerImage} source={userData?.profilePhoto ? { uri: `${user_profile_images_path}/${userData?.profilePhoto}` } : {uri: `${images_path}/userProfileImage.png`} }
+        <Image style={stylesAppTheme.pickerImage} source={userData?.profilePhoto ? { uri: `${user_profile_images_path}/${userData?.profilePhoto}` } : { uri: `${images_path}/userProfileImage.png` }}
         />
 
+        {updateProfile ? (<TouchableOpacity style={stylesAppTheme.button} onPress={() => setUpdateProfile(false)}>
+          <Text style={stylesAppTheme.textButton}>Guardar cambios</Text>
+        </TouchableOpacity>) :
+          (<TouchableOpacity style={stylesAppTheme.button} onPress={() => setUpdateProfile(true)}>
+            <Text style={stylesAppTheme.textButton}>Modificar Perfil</Text>
+          </TouchableOpacity>)}
 
         <TouchableOpacity style={stylesAppTheme.button} onPress={() => { navigation.navigate("LogIn"); }}>
           <Text style={stylesAppTheme.textButton}>Cerrar Sesion</Text>
