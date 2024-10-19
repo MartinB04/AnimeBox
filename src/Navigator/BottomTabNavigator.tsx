@@ -2,7 +2,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Home } from '../Screens/Home';
 import { Profile } from '../Screens/Profile';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { Anime } from '../Screens/Anime';
+import { AnimeDirectory } from '../Screens/AnimeDirectory';
+import { UserAnimeList } from '../Screens/UserAnimeList';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,8 +20,11 @@ export const BottomTabNavigator = () => {
           } else if (route.name === 'Profile') {
             iconName = focused ? 'person' : 'person-outline'; // Cambia el icono según si está enfocado o no
           }
-          else if (route.name === 'Anime') {
-            iconName = focused ? 'library' : 'person-outline'; // Cambia el icono según si está enfocado o no
+          else if (route.name === 'Anime Directory') {
+            iconName = focused ? 'list' : 'list-outline'; // Cambia el icono según si está enfocado o no
+          }
+          else if (route.name === 'My Animes') {
+            iconName = focused ? 'library' : 'library-outline'; // Cambia el icono según si está enfocado o no
           }
 
           // Retorna el ícono correspondiente de Ionicons
@@ -32,7 +36,8 @@ export const BottomTabNavigator = () => {
       )}
     >
       <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
-      <Tab.Screen name="Anime" component={Anime} options={{ headerShown: false, }} />
+      <Tab.Screen name="My Animes" component={UserAnimeList} options={{ headerShown: false, }} />
+      <Tab.Screen name="Anime Directory" component={AnimeDirectory} options={{ headerShown: false, }} />
       <Tab.Screen name="Profile" component={Profile} options={{ headerShown: false, }} />
     </Tab.Navigator>
   );

@@ -6,7 +6,7 @@ import { AnimeContext, AnimeData } from '../Components/AnimeContext';
 import { useNavigation } from '@react-navigation/native';
 import { show_animes_script } from '../Const/UrlConfig';
 
-export const Anime = () => {
+export const AnimeDirectory = () => {
     const [animes, setAnimes] = useState<AnimeData[]>([]);
     const navigation = useNavigation();
     const { setAnimeData } = useContext(AnimeContext) || { setAnimeData: () => { } }; // Maneja el caso de que el contexto no esté definido
@@ -41,7 +41,7 @@ export const Anime = () => {
         <ScrollView style={stylesAppTheme.scrollViewStyle}>
             <View style={stylesAppTheme.mainContainer}>
 
-                <Text style={stylesAppTheme.titleScreen}>Animes</Text>
+                <Text style={stylesAppTheme.titleScreen}>Directorio de Animes</Text>
 
                 <View style={stylesAppTheme.animeConteiner}>
                     {animes.map((anime, index) => (
