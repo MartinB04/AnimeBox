@@ -23,6 +23,14 @@ export const Profile = () => {
     navigation.navigate("LogIn");
   }
 
+
+  const AlertUpdateProfile = () => {
+    Alert.alert("Actualiza perfil", "Seguro que quieres actulizar el perfil?", [
+      { text: "Actualizar", onPress: () => UpdateProfile() },
+      { text: "Cancelar", style: 'cancel', onPress: () => setUpdateProfile(false)}
+    ])
+  }
+
   const UpdateProfile = () => {
     fetch(`${update_user_profile_script}?id_usuario=${userData?.username}&nombre=${name}&email=${email}&telefono=${phone}`)
       .then(response => response.json())
@@ -115,7 +123,7 @@ export const Profile = () => {
         <Image style={stylesAppTheme.pickerImage} source={userData?.profilePhoto ? { uri: `${user_profile_images_path}/${userData?.profilePhoto}` } : { uri: `${images_path}/userProfileImage.png` }}
         />
 
-        {updateProfile ? (<TouchableOpacity style={stylesAppTheme.button} onPress={UpdateProfile}>
+        {updateProfile ? (<TouchableOpacity style={stylesAppTheme.button} onPress={AlertUpdateProfile}>
           <Text style={stylesAppTheme.textButton}>Guardar cambios</Text>
         </TouchableOpacity>) :
           (<TouchableOpacity style={stylesAppTheme.button} onPress={() => setUpdateProfile(true)}>
