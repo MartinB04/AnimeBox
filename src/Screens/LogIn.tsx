@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Alert } from 'react-native'
 import { ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler'
 
 import { useNavigation } from '@react-navigation/native';
-import { SignIn } from './RegisterUser';
+import { RegisterUser } from './RegisterUser';
 import { stylesAppTheme } from '../Theme/AppTheme';
 import { UserContext } from '../Components/UserContext';
 import { login_script } from '../Const/UrlConfig';

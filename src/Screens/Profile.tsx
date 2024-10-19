@@ -27,7 +27,7 @@ export const Profile = () => {
   const AlertUpdateProfile = () => {
     Alert.alert("Actualiza perfil", "Seguro que quieres actulizar el perfil?", [
       { text: "Actualizar", onPress: () => UpdateProfile() },
-      { text: "Cancelar", style: 'cancel', onPress: () => setUpdateProfile(false)}
+      { text: "Cancelar", style: 'cancel', onPress: ReiniciarDatos}
     ])
   }
 
@@ -52,6 +52,12 @@ export const Profile = () => {
       });
   }
 
+  const ReiniciarDatos = ( ) => {
+    setName(userData?.name || '');
+    setEmail(userData?.email || '');
+    setPhone(userData?.phoneNumber || '');
+    setUpdateProfile(false);
+  }
 
   const AlertDeleteUserProfile = () =>
     Alert.alert('Eliminación de Perfil', '¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es irreversible.', [
