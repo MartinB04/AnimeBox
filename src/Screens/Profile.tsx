@@ -5,18 +5,43 @@ import { stylesAppTheme } from '../Theme/AppTheme'
 import { useNavigation } from '@react-navigation/native'
 import { UserContext } from '../Components/UserContext'
 import { LogIn } from './LogIn'
-import { delete_user_script, images_path, user_profile_images_path } from '../Const/UrlConfig'
+import { delete_user_script, images_path, update_user_profile_script, user_profile_images_path } from '../Const/UrlConfig'
 
 export const Profile = () => {
 
   const navigation = useNavigation();
   const { userData } = useContext(UserContext) || { userData: null }; // Maneja el caso de que el contexto no esté definido
 
-  const [updateProfile, setUpdateProfile] = useState(false)
+  const [updateProfile, setUpdateProfile] = useState(false);
+
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
 
 
   const navegacion = () => {
     navigation.navigate("LogIn");
+  }
+
+  const UpdateProfile = () => {
+    fetch(`${update_user_profile_script}?id_usuario=${userData?.username}&nombre=${name}&email=${email}&telefono=${phone}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data == "0") {
+          // console.log("Usuario no encontrado"); 
+          Alert.alert("Error", "No se pudo actualizar el perfil");
+        }
+        else {
+          Alert.alert("Ok", "Perfil actualizado");
+          setUpdateProfile(false);
+        }
+
+
+      })
+
+      .catch(error => {
+        console.warn('error', error);
+      });
   }
 
 
@@ -68,21 +93,21 @@ export const Profile = () => {
         <View style={stylesAppTheme.rowProfile}>
           <Text style={stylesAppTheme.textLabel}>Nombre: </Text>
           {updateProfile ?
-            (<TextInput style={stylesAppTheme.textInput} placeholder='Nombre Bv' />) :
+            (<TextInput style={stylesAppTheme.textInput} placeholder={userData?.name} value={name} onChangeText={setName} />) :
             (<Text style={[stylesAppTheme.textLabel, stylesAppTheme.textLabelUserData]}>{userData?.name}</Text>)
           }
         </View>
         <View style={stylesAppTheme.rowProfile}>
           <Text style={stylesAppTheme.textLabel}>Email: </Text>
           {updateProfile ?
-            (<TextInput style={stylesAppTheme.textInput} placeholder='Email Bv' />) :
+            (<TextInput style={stylesAppTheme.textInput} placeholder={userData?.email} value={email} onChangeText={setEmail} />) :
             (<Text style={[stylesAppTheme.textLabel, stylesAppTheme.textLabelUserData]}>{userData?.email}</Text>)
           }
         </View>
         <View style={stylesAppTheme.rowProfile}>
           <Text style={stylesAppTheme.textLabel}>Phone: </Text>
           {updateProfile ?
-            (<TextInput style={stylesAppTheme.textInput} placeholder='Phone Bv' /* value={userData?.phoneNumber} */ />) :
+            (<TextInput style={stylesAppTheme.textInput} placeholder={userData?.phoneNumber} value={phone} onChangeText={setPhone} />) :
             (<Text style={[stylesAppTheme.textLabel, stylesAppTheme.textLabelUserData]}>{userData?.phoneNumber}</Text>)
           }
         </View>
@@ -90,7 +115,7 @@ export const Profile = () => {
         <Image style={stylesAppTheme.pickerImage} source={userData?.profilePhoto ? { uri: `${user_profile_images_path}/${userData?.profilePhoto}` } : { uri: `${images_path}/userProfileImage.png` }}
         />
 
-        {updateProfile ? (<TouchableOpacity style={stylesAppTheme.button} onPress={() => setUpdateProfile(false)}>
+        {updateProfile ? (<TouchableOpacity style={stylesAppTheme.button} onPress={UpdateProfile}>
           <Text style={stylesAppTheme.textButton}>Guardar cambios</Text>
         </TouchableOpacity>) :
           (<TouchableOpacity style={stylesAppTheme.button} onPress={() => setUpdateProfile(true)}>

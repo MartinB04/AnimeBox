@@ -5,8 +5,6 @@ $nombre = $_GET['nombre'];
 $email = $_GET['email'];
 $telefono = $_GET['telefono'];
 
-echo "Entar a script";
-
 // Credenciales
 $server = 'localhost';
 $user = 'u826668871_root';

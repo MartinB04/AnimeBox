@@ -10,5 +10,8 @@ export const delete_user_script = `${php_path}/EliminarUsuario.php`
 export const update_visualization_anime_script = `${php_path}/ActualizarVisualizacion.php`
 export const visualization_anime_script = `${php_path}/Visualizacion.php`
 export const show_animes_script = `${php_path}/MostrarAnimes.php`
+export const update_user_profile_script = `${php_path}/ActualizarPerfil.php`
+
+
 
 export const images_path = `${domain}/Images`;
