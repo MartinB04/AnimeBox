@@ -35,7 +35,9 @@ error_log("Foto de perfil: " . $imagen_perfil);
 
 // Si hay una foto de perfil asociada, intenta eliminarla del servidor
 if ($imagen_perfil) {
-    $uploads_dir = 'uploads/'; // Cambia a la ruta correcta en tu servidor
+    
+    //$uploads_dir = 'uploads/'; // Cambia a la ruta correcta en tu servidor
+    $uploads_dir = $_SERVER['DOCUMENT_ROOT'] . '/anime_box/uploads/user_profile_images/'; // Cambia a la ruta correcta en tu servidor
     $rutaFoto = $uploads_dir . $imagen_perfil;
 
     // Log la ruta de la foto que se intentará eliminar
