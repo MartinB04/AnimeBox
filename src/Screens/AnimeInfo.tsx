@@ -6,6 +6,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { UserContext } from '../Components/UserContext'
 import { update_visualization_anime_script, visualization_anime_script } from '../Const/UrlConfig';
+import RNPickerSelect from 'react-native-picker-select';
 
 type VisualizationData = {
     favorito: boolean;
@@ -26,25 +27,20 @@ type AnimeData = {
 };
 
 export const AnimeInfo = () => {
-    //const context = useContext(AnimeContext);
     const context = useContext(AnimeContext) || { animeData: null };
-
-    if (!context) {
-        throw new Error('AnimeContext must be used within an AnimeProvider');
-    }
-
-    //const { userData } = useContext(UserContext) || { userData: null }; // Maneja el caso de que el contexto no esté definido
+    const [statusVision, setStatusVision] = useState('');
     const { userData } = useContext(UserContext) || { userData: null }; // Maneja el caso de que el contexto no esté definido
-    //const { animeData } = context;
     const { animeData } = context as { animeData: AnimeData | null }; // Asegurarse de que animeData puede ser null
-    console.log(userData?.username, animeData?.id_anime)
-
-
     const [visualizationData, setVisualizationData] = useState<VisualizationData | null>({
         favorito: false, // o el valor que consideres apropiado
         status_vision: 'No marcado', // o el valor que desees
     });
     const [loading, setLoading] = useState(true);
+
+    if (!context) {
+        throw new Error('AnimeContext must be used within an AnimeProvider');
+    }
+
 
     useEffect(() => {
         const fetchVisualizationData = async () => {
@@ -83,18 +79,18 @@ export const AnimeInfo = () => {
         );
     }
 
-    const Favorite = async () => {
+    const UpdateFavorite = async () => {
         try {
             // Invertir el valor de favorito localmente para actualizar la UI de inmediato
             const newFavoriteStatus = !visualizationData?.favorito;
-    
+
             // Realizar la petición a la API para actualizar el valor en el backend
             const response = await fetch(
                 `${update_visualization_anime_script}?id_usuario=${userData?.username}&id_anime=${animeData?.id_anime}&status_vision=${visualizationData?.status_vision}&favorito=${newFavoriteStatus}`
             );
-    
+
             const data = await response.json();
-    
+
             if (data == "0") {
                 // Si hay un error con el usuario, puedes mostrar una alerta o manejarlo como desees
                 console.log("Error al actualizar el estado de favorito");
@@ -112,6 +108,35 @@ export const AnimeInfo = () => {
         }
     };
 
+
+    const UpdateStatusVision = async (newStatusVision: string) => {
+        try {
+            // Actualizar el estado de statusVision antes de hacer la llamada a la API
+            setStatusVision(newStatusVision);
+
+            // Realizar la petición a la API para actualizar el valor en el backend
+            const response = await fetch(
+                `${update_visualization_anime_script}?id_usuario=${userData?.username}&id_anime=${animeData?.id_anime}&status_vision=${newStatusVision}&favorito=${visualizationData?.favorito}`
+            );
+
+            const data = await response.json();
+
+            if (data === "0") {
+                console.log("Error al actualizar el estado de visionado");
+            } else {
+                // Si la actualización en el servidor fue exitosa, actualizar el estado localmente
+                setVisualizationData((prevData) => {
+                    if (prevData) {
+                        return { ...prevData, status_vision: newStatusVision };
+                    }
+                    return prevData;
+                });
+            }
+        } catch (error) {
+            console.warn('Error al actualizar estado de visualización:', error);
+        }
+    };
+
     return (
         <ScrollView style={stylesAppTheme.scrollViewStyle}>
             <View style={stylesAppTheme.mainContainer}>
@@ -123,7 +148,7 @@ export const AnimeInfo = () => {
                     </View>
                 </View>
                 <View style={stylesAppTheme.animeDataBarView}>
-                    {<TouchableOpacity style={stylesAppTheme.infoBar} onPress={Favorite}>
+                    {<TouchableOpacity style={stylesAppTheme.infoBar} onPress={UpdateFavorite}>
                         <Text style={stylesAppTheme.textInfoAnime}>Favorito: </Text>
                         <Ionicons name='heart' size={25} color={visualizationData?.favorito ? "red" : "grey"} />
 
@@ -159,6 +184,23 @@ export const AnimeInfo = () => {
                     <Text style={stylesAppTheme.textInfoAnime}>Estado: </Text>
                     <Text style={[stylesAppTheme.textInfoAnime, stylesAppTheme.textInfoAnimeData]}>
                         {visualizationData?.status_vision || 'No marcado'}</Text>
+
+                    <RNPickerSelect
+                        placeholder={{
+                            label: 'Selecciona un estado...',
+                            value: null, // Esto asegura que no se seleccione ninguna opción inicialmente
+                            color: '#9EA0A4',
+                        }}
+                        onValueChange={(value) => UpdateStatusVision(value)} // Actualiza y llama a la API
+                        value={visualizationData?.status_vision} // El valor actual del estado
+                        items={[
+                            { label: 'Viendo', value: 'Viendo' },
+                            { label: 'Considerando', value: 'Considerando' },
+                            { label: 'Pausado', value: 'Pausado' },
+                            { label: 'Abandonado', value: 'Abandonado' },
+                            { label: 'Finalizado', value: 'Finalizado' },
+                        ]}
+                    />
                 </View>
             </View>
         </ScrollView>

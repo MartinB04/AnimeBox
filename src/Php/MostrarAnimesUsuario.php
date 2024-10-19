@@ -45,14 +45,14 @@ if (mysqli_num_rows($result) > 0) {
         $datos[] = array(
             'id_anime' => $row['id_anime'],
             'nombre' => $row['nombre'],
-            /* 'sinopsis' => $row['sinopsis'],
+            'sinopsis' => $row['sinopsis'],
             'precuela' => $row['precuela'],
             'secuela' => $row['secuela'],
             'status_emision' => $row['status_emision'],
             'tipo_contenido' => $row['tipo_contenido'],
-            'popularidad' => $row['popularidad'], */
+            'popularidad' => $row['popularidad'], 
             'imagen' => $row['imagen'],
-            /* 'total_episodios' => $row['total_episodios'] */
+            'total_episodios' => $row['total_episodios'] 
         );
     }
     
