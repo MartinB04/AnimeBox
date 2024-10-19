@@ -27,7 +27,11 @@ if(!$conn)
 }
 
 //sentencia a ejecutar en el server de bd
-$sql = "SELECT * FROM visualiza WHERE id_usuario='$id_usuario' ";
+$sql = "SELECT *
+FROM visualiza
+INNER JOIN anime
+ON visualiza.id_anime = anime.id_anime
+WHERE visualiza.id_usuario = '$id_usuario'";
 //ejecucion de la sentencia
 $result = mysqli_query($conn,$sql);
 
@@ -41,14 +45,14 @@ if (mysqli_num_rows($result) > 0) {
         $datos[] = array(
             'id_anime' => $row['id_anime'],
             'nombre' => $row['nombre'],
-            'sinopsis' => $row['sinopsis'],
+            /* 'sinopsis' => $row['sinopsis'],
             'precuela' => $row['precuela'],
             'secuela' => $row['secuela'],
             'status_emision' => $row['status_emision'],
             'tipo_contenido' => $row['tipo_contenido'],
-            'popularidad' => $row['popularidad'],
+            'popularidad' => $row['popularidad'], */
             'imagen' => $row['imagen'],
-            'total_episodios' => $row['total_episodios']
+            /* 'total_episodios' => $row['total_episodios'] */
         );
     }
     
