@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { View, Text, StyleSheet, Alert } from 'react-native'
 import { ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler'
 
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { RegisterUser } from './RegisterUser';
 import { stylesAppTheme } from '../Theme/AppTheme';
 import { UserContext } from '../Components/UserContext';
@@ -15,6 +15,13 @@ export const LogIn = () => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  useFocusEffect (
+    React.useCallback( () => {
+      setUsername('');
+    setPassword('');
+    }, [])
+  );
 
   const navegacion = () => {
     navigation.navigate("BottomTabNavigator");
