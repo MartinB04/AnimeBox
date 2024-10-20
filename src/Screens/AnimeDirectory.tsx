@@ -27,6 +27,10 @@ export const AnimeDirectory = () => {
         fetchAnimes();
     }, []);
 
+    useEffect(() => {
+        console.log("Animes cargados:", animes); // Muestra los animes después de que el estado ha sido actualizado
+    }, [animes]);
+
     // Navegar a la pantalla de información del anime
     const navigateToAnimeInfo = (anime: AnimeData) => {
         // Usa setTimeout para evitar la advertencia de actualización de estado en el render

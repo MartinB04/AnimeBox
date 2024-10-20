@@ -1,13 +1,4 @@
 <?php
-//echo "Iniciar sesion Bv";
-//ini_set('display_errors', 1);
-//ini_set('display_startup_errors', 1);
-//error_reporting(E_ALL);
-//Datos recibidos
-/* $id_usuario = $_GET['username'];
-
-$contrasenia = $_GET['password']; */
-
 
 //credenciales
 /* $server = 'localhost';
@@ -28,7 +19,7 @@ if(!$conn)
 }
 
 //sentencia a ejecutar en el server de bd
-$sql = "SELECT * FROM anime ";
+$sql = "SELECT id_anime, nombre, imagen FROM anime ";
 //ejecucion de la sentencia
 $result = mysqli_query($conn,$sql);
 
@@ -42,14 +33,14 @@ if (mysqli_num_rows($result) > 0) {
         $datos[] = array(
             'id_anime' => $row['id_anime'],
             'nombre' => $row['nombre'],
-            'sinopsis' => $row['sinopsis'],
+            /* 'sinopsis' => $row['sinopsis'],
             'precuela' => $row['precuela'],
             'secuela' => $row['secuela'],
             'status_emision' => $row['status_emision'],
             'tipo_contenido' => $row['tipo_contenido'],
-            'popularidad' => $row['popularidad'],
+            'popularidad' => $row['popularidad'], */
             'imagen' => $row['imagen'],
-            'total_episodios' => $row['total_episodios']
+            //'total_episodios' => $row['total_episodios']
         );
     }
     
