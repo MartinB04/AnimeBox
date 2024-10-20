@@ -10,3 +10,11 @@ export const AlertDeleteUserProfile = (EliminarPerfil: () => void) => {
         },
     ])
 };
+
+
+export const AlertUpdateProfile = (UpdateProfile: () => void, ReiniciarDatos: () => void) => {
+    Alert.alert("Actualiza perfil", "Seguro que quieres actulizar el perfil?", [
+      { text: "Actualizar", onPress: () => UpdateProfile() },
+      { text: "Cancelar", style: 'cancel', onPress: ReiniciarDatos }
+    ])
+  }

@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import { UserContext } from '../Components/UserContext'
 import { LogIn } from './LogIn'
 import { delete_user_script, images_path, update_user_profile_script, user_profile_images_path } from '../Const/UrlConfig'
-import { AlertDeleteUserProfile } from '../Notifications/Alerts'
+import { AlertDeleteUserProfile, AlertUpdateProfile } from '../Notifications/Alerts'
 
 export const Profile = () => {
 
@@ -25,12 +25,7 @@ export const Profile = () => {
   }
 
 
-  const AlertUpdateProfile = () => {
-    Alert.alert("Actualiza perfil", "Seguro que quieres actulizar el perfil?", [
-      { text: "Actualizar", onPress: () => UpdateProfile() },
-      { text: "Cancelar", style: 'cancel', onPress: ReiniciarDatos }
-    ])
-  }
+  
 
   const UpdateProfile = () => {
     fetch(`${update_user_profile_script}?id_usuario=${userData?.username}&nombre=${name}&email=${email}&telefono=${phone}`)
@@ -121,7 +116,7 @@ export const Profile = () => {
         <Image style={stylesAppTheme.pickerImage} source={userData?.profilePhoto ? { uri: `${user_profile_images_path}/${userData?.profilePhoto}` } : { uri: `${images_path}/userProfileImage.png` }}
         />
 
-        {updateProfile ? (<TouchableOpacity style={stylesAppTheme.button} onPress={AlertUpdateProfile}>
+        {updateProfile ? (<TouchableOpacity style={stylesAppTheme.button} onPress={() => AlertUpdateProfile(UpdateProfile, ReiniciarDatos)}>
           <Text style={stylesAppTheme.textButton}>Guardar cambios</Text>
         </TouchableOpacity>) :
           (<TouchableOpacity style={stylesAppTheme.button} onPress={() => setUpdateProfile(true)}>
