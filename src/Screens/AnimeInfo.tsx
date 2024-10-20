@@ -13,19 +13,6 @@ type VisualizationData = {
     status_vision: string;
 };
 
-/* type AnimeData = {
-    id_anime: string;
-    nombre: string;
-    imagen: string;
-    popularidad: string;
-    total_episodios: number;
-    sinopsis: string;
-    precuela?: string;
-    secuela?: string;
-    status_emision: string;
-    tipo_contenido: string;
-}; */
-
 export const AnimeInfo = () => {
     const context = useContext(AnimeContext) || { animeData: null };
     const [statusVision, setStatusVision] = useState('');

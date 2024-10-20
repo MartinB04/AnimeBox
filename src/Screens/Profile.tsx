@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import { UserContext } from '../Components/UserContext'
 import { LogIn } from './LogIn'
 import { delete_user_script, images_path, update_user_profile_script, user_profile_images_path } from '../Const/UrlConfig'
+import { AlertDeleteUserProfile } from '../Notifications/Alerts'
 
 export const Profile = () => {
 
@@ -27,7 +28,7 @@ export const Profile = () => {
   const AlertUpdateProfile = () => {
     Alert.alert("Actualiza perfil", "Seguro que quieres actulizar el perfil?", [
       { text: "Actualizar", onPress: () => UpdateProfile() },
-      { text: "Cancelar", style: 'cancel', onPress: ReiniciarDatos}
+      { text: "Cancelar", style: 'cancel', onPress: ReiniciarDatos }
     ])
   }
 
@@ -52,23 +53,14 @@ export const Profile = () => {
       });
   }
 
-  const ReiniciarDatos = ( ) => {
+  const ReiniciarDatos = () => {
     setName(userData?.name || '');
     setEmail(userData?.email || '');
     setPhone(userData?.phoneNumber || '');
     setUpdateProfile(false);
   }
 
-  const AlertDeleteUserProfile = () =>
-    Alert.alert('Eliminación de Perfil', '¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es irreversible.', [
-
-      { text: 'Eliminar', onPress: () => EliminarPerfil() },
-      {
-        text: 'Cancel',
-        /* onPress: () => console.log('Cancel Pressed'), */
-        style: 'cancel',
-      },
-    ]);
+  
 
   const EliminarPerfil = () => {
     fetch(`${delete_user_script}?username=${userData?.username}`)
@@ -139,7 +131,7 @@ export const Profile = () => {
         <TouchableOpacity style={stylesAppTheme.button} onPress={() => { navigation.navigate("LogIn"); }}>
           <Text style={stylesAppTheme.textButton}>Cerrar Sesion</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={stylesAppTheme.button} onPress={AlertDeleteUserProfile}>
+        <TouchableOpacity style={stylesAppTheme.button} onPress={() => AlertDeleteUserProfile (EliminarPerfil)}>
           <Text style={stylesAppTheme.textButton}>Eliminar perfil</Text>
         </TouchableOpacity>
       </View>
