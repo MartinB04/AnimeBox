@@ -7,7 +7,7 @@ import { RegisterUser } from './RegisterUser';
 import { stylesAppTheme } from '../Theme/AppTheme';
 import { UserContext } from '../Components/UserContext';
 import { login_script } from '../Const/UrlConfig';
-
+import { loginUser } from '../Services/Api';
 
 export const LogIn = () => {
 
@@ -16,10 +16,10 @@ export const LogIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  useFocusEffect (
-    React.useCallback( () => {
+  useFocusEffect(
+    React.useCallback(() => {
       setUsername('');
-    setPassword('');
+      setPassword('');
     }, [])
   );
 
@@ -27,34 +27,34 @@ export const LogIn = () => {
     navigation.navigate("BottomTabNavigator");
   }
   const { setUserData } = useContext(UserContext) || { setUserData: () => { } }; // Maneja el caso de que el contexto no esté definido
-  const IniciarSesion = () => {
-    //fetch('https://kuramadev.com/Registro.php?username=mudis2&password=Kazo13') 
-    fetch(`${login_script}?username=${username}&password=${password}`)
-      .then(response => response.json())
-      .then(data => {
-        if (data == "0") {
-          // console.log("Usuario no encontrado"); 
-          Alert.alert("Error", "Credenciales erroneas")
-        }
-        else {
-          const userData = {
-            username: data.id_usuario, // Asegúrate de que la respuesta contenga el username
-            password: data.contrasenia,       // Suponiendo que la API devuelve el email
-            name: data.nombre,
-            phoneNumber: data.telefono,
-            email: data.email,       // Y también el ID del usuario
-            profilePhoto: data.imagen_perfil,
-            // Agrega otras propiedades según la respuesta de la API
-          }
-          setUserData(userData);
-          navegacion();
-        }
-      })
 
-      .catch(error => {
-        console.warn('error', error);
-      });
-  }
+  const IniciarSesion = async () => {
+    try {
+      // Llamamos a la función `loginUser` que está en `api.ts`
+      const data = await loginUser(username, password);
+
+      if (data == "0") {
+        Alert.alert("Error", "Credenciales incorrectas");
+      } else {
+        // Creamos un objeto con los datos de usuario
+        const userData = {
+          username: data.id_usuario,
+          password: data.contrasenia,
+          name: data.nombre,
+          phoneNumber: data.telefono,
+          email: data.email,
+          profilePhoto: data.imagen_perfil,
+        };
+
+        // Guardamos los datos en el contexto de usuario
+        setUserData(userData);
+        navegacion(); // Navegamos a la siguiente pantalla
+      }
+
+    } catch (error) {
+      console.warn('Error during login:', error);
+    }
+  };
 
   return (
     <ScrollView style={stylesAppTheme.scrollViewStyle}>
