@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { stylesAppTheme } from '../Theme/AppTheme';
-import { AnimeContext } from '../Components/AnimeContext';
+import { AnimeContext, AnimeData } from '../Components/AnimeContext';
 import { ScrollView } from 'react-native-gesture-handler';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { UserContext } from '../Components/UserContext'
@@ -13,7 +13,7 @@ type VisualizationData = {
     status_vision: string;
 };
 
-type AnimeData = {
+/* type AnimeData = {
     id_anime: string;
     nombre: string;
     imagen: string;
@@ -24,7 +24,7 @@ type AnimeData = {
     secuela?: string;
     status_emision: string;
     tipo_contenido: string;
-};
+}; */
 
 export const AnimeInfo = () => {
     const context = useContext(AnimeContext) || { animeData: null };
