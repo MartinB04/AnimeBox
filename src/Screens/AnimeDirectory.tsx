@@ -2,21 +2,24 @@ import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, Image } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { stylesAppTheme } from '../Theme/AppTheme';
-import { AnimeContext, AnimeData } from '../Components/AnimeContext';
+import { AnimeContext, ArrayAnimeData, AnimeDataId } from '../Components/AnimeContext';
 import { useNavigation } from '@react-navigation/native';
 import { show_animes_script } from '../Const/UrlConfig';
 
 export const AnimeDirectory = () => {
-    const [animes, setAnimes] = useState<AnimeData[]>([]);
+    const [arrayAnimes, setArrayAnimes] = useState<ArrayAnimeData[]>([]);
+    const [animeId, setAnimeId] = useState<AnimeDataId>();
     const navigation = useNavigation();
-    const { setAnimeData } = useContext(AnimeContext) || { setAnimeData: () => { } }; // Maneja el caso de que el contexto no esté definido
+    const { setArrayAnimeData, setAnimeDataId } = useContext(AnimeContext) || { setArrayAnimeData: () => {}, setAnimeDataId: () => {} };
+
 
     // Función para obtener los datos desde la API
     const fetchAnimes = async () => {
         try {
             const response = await fetch(`${show_animes_script}`); // Replace with your server URL
             const data = await response.json();
-            setAnimes(data); // Save the fetched anime data in the state
+            setArrayAnimes(data); // Save the fetched anime data in the state
+            setArrayAnimeData(data); // Guarda la data en el contexto
         } catch (error) {
             console.error('Error fetching the data:', error);
         }
@@ -28,15 +31,15 @@ export const AnimeDirectory = () => {
     }, []);
 
     useEffect(() => {
-        console.log("Animes cargados:", animes); // Muestra los animes después de que el estado ha sido actualizado
-    }, [animes]);
+        console.log("Animes cargados:", arrayAnimes); // Muestra los animes después de que el estado ha sido actualizado
+    }, [arrayAnimes]);
 
     // Navegar a la pantalla de información del anime
-    const navigateToAnimeInfo = (anime: AnimeData) => {
+    const navigateToAnimeInfo = (animeId: number) => {
         // Usa setTimeout para evitar la advertencia de actualización de estado en el render
         setTimeout(() => {
-            setAnimeData(anime); // Establece los datos del anime en el contexto
-            console.log(`Se presiona un anime: ${JSON.stringify(anime)}`); // Usa JSON.stringify para obtener una mejor representación del objeto
+            setAnimeDataId(arrayAnimes.find(anime => anime.id_anime === animeId) || null); // Establece los datos del anime en el contexto
+            console.log(`Se presiona un anime: ${JSON.stringify(animeId)}`); // Usa JSON.stringify para obtener una mejor representación del objeto
             navigation.navigate("AnimeInfo"); // Navega a la pantalla de información
         }, 0); // El timeout de 0 ms asegura que se ejecute después de la fase de renderizado
     };
@@ -48,11 +51,11 @@ export const AnimeDirectory = () => {
                 <Text style={stylesAppTheme.titleScreen}>Directorio de Animes</Text>
 
                 <View style={stylesAppTheme.animeConteiner}>
-                    {animes.map((anime, index) => (
+                    {arrayAnimes.map((anime, index) => (
                         <TouchableOpacity
                             style={stylesAppTheme.animeCell}
                             key={index}
-                            onPress={() => navigateToAnimeInfo(anime)} // Asegúrate de pasar el anime aquí
+                            onPress={() => navigateToAnimeInfo(anime.id_anime)} // Asegúrate de pasar el anime aquí
                         >
                             <Image
                                 source={{ uri: anime.imagen }} // Anime image
