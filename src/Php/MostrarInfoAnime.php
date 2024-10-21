@@ -33,7 +33,7 @@ $band = False;
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
         // Agrega cada fila a la matriz de datos
-        $datos[] = array(
+        $datos = array(
             'id_anime' => $row['id_anime'],
             'nombre' => $row['nombre'],
             'sinopsis' => $row['sinopsis'],

@@ -14,3 +14,4 @@ export const visualization_anime_script = `${php_path}/Visualizacion.php`
 export const show_animes_script = `${php_path}/MostrarAnimes.php`
 export const update_user_profile_script = `${php_path}/ActualizarPerfil.php`
 export const show_user_anime_list_script = `${php_path}/MostrarAnimesUsuario.php`
+export const show_info_anime_script = `${php_path}/MostrarInfoAnime.php`

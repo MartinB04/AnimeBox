@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { stylesAppTheme } from '../Theme/AppTheme';
-import { AnimeContext, AnimeData } from '../Components/AnimeContext';
+import { AnimeContext, AnimeData, AnimeDataId } from '../Components/AnimeContext';
 import { ScrollView } from 'react-native-gesture-handler';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { UserContext } from '../Components/UserContext'
-import { update_visualization_anime_script, visualization_anime_script } from '../Const/UrlConfig';
+import { show_info_anime_script, update_visualization_anime_script, visualization_anime_script } from '../Const/UrlConfig';
 import RNPickerSelect from 'react-native-picker-select';
 
 type VisualizationData = {
@@ -18,6 +18,9 @@ export const AnimeInfo = () => {
     const [statusVision, setStatusVision] = useState('');
     const { userData } = useContext(UserContext) || { userData: null }; // Maneja el caso de que el contexto no esté definido
     const { animeData } = context as { animeData: AnimeData | null }; // Asegurarse de que animeData puede ser null
+    const { animeDataId } = context as { animeDataId: AnimeDataId | null }; // Asegurarse de que animeData puede ser null
+    const { setAnimeData } = useContext(AnimeContext) || { setAnimeData: () => { } };
+
     const [visualizationData, setVisualizationData] = useState<VisualizationData | null>({
         favorito: false, // o el valor que consideres apropiado
         status_vision: 'No marcado', // o el valor que desees
@@ -48,6 +51,29 @@ export const AnimeInfo = () => {
             fetchVisualizationData();
         }
     }, [userData, animeData]);
+
+    useEffect(() => {
+        const fetchInfoAnimeData = async () => {
+            try {
+                if (userData?.username && animeDataId?.id_anime) {
+                    console.log(`usuario => ${userData.username} id_anime => ${animeDataId.id_anime}`);
+                    const response = await fetch(`${show_info_anime_script}?id_anime=${animeDataId.id_anime}`);
+                    const data = await response.json();
+                    setAnimeData(data);
+                    console.log(`Datos del anime => ${JSON.stringify(data)}`); // Mostrar el contenido del objeto
+                    console.log(`AnimeData => ${JSON.stringify(animeData)}`); // Mostrar el contenido de animeData
+                }
+            } catch (error) {
+                console.error('Error al obtener datos de visualización:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (userData && animeDataId) {
+            fetchInfoAnimeData();
+        }
+    }, [userData, animeDataId]);
 
     if (loading) {
         return (
